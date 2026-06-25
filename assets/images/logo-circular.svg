@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="95" fill="#FFFFFF" stroke="#0F2744" stroke-width="4"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="4 2"/>
+  
+  <!-- Modern House Icon in Center -->
+  <g transform="translate(65, 65)">
+    <path d="M35 15 L35 0 L45 0 L45 25 Z" fill="#0F2744"/>
+    <path d="M35 35 L70 35 L70 70 L0 70 L0 35 Z" fill="none" stroke="#0F2744" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M-10 40 L35 -5 L80 40" fill="none" stroke="#D4A017" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="25" y="45" width="20" height="25" fill="#D4A017"/>
+  </g>
+
+  <!-- Circular Text Path -->
+  <defs>
+    <path id="top-curve" d="M 30,100 A 70,70 0 0,1 170,100" />
+    <path id="bottom-curve" d="M 160,110 A 60,60 0 0,1 40,110" />
+  </defs>
+
+  <text fill="#0F2744" font-family="'Playfair Display', serif" font-weight="bold" font-size="20" letter-spacing="3">
+    <textPath href="#top-curve" startOffset="50%" text-anchor="middle">AIRA HOMES</textPath>
+  </text>
+  
+  <text fill="#D4A017" font-family="'Montserrat', sans-serif" font-weight="bold" font-size="12" letter-spacing="4">
+    <textPath href="#bottom-curve" startOffset="50%" text-anchor="middle">EST. 2011</textPath>
+  </text>
+</svg>
