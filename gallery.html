@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="AIRA HOMES Gallery - Showcasing Excellence Since 2011 with our premium masonry gallery of luxury architecture and construction projects.">
   <title>Gallery | AIRA HOMES</title>
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-  <link rel="stylesheet" href="assets/css/style.css?v=3">
+  <link rel="icon" type="image/png" href="logo.png"><link rel="shortcut icon" href="logo.png"><link rel="apple-touch-icon" href="logo.png">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -17,7 +19,7 @@
   <header id="header">
     <div class="nav-container">
       <a href="index.html" class="logo">
-        <img src="Logo.png" alt="AIRA HOMES Logo" style="height: 64px; width: auto;">
+        <img src="logo.png" alt="AIRA HOMES Logo" style="height: 120px; width: 120px; object-fit: contain;">
       </a>
 
       <nav class="nav-menu">
@@ -30,7 +32,7 @@
       </nav>
 
       <div class="nav-cta">
-        <a href="tel:+919030175615" class="nav-link" style="font-weight: 700; color: var(--navy-dark); text-transform: none;">+91 90301 75615</a>
+        <a href="contact.html#contact-form" class="nav-link" style="font-weight: 700; color: var(--navy-dark); text-transform: none;">+91 90301 75615</a>
         <a href="contact.html" class="btn btn-gold">Get A Quote</a>
       </div>
 
@@ -59,7 +61,7 @@
   <section class="inner-hero" style="background-image: linear-gradient(rgba(248,246,242,0.9), rgba(248,246,242,0.9)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center;">
     <div class="container">
       <h1 class="inner-hero-title">Our Gallery</h1>
-      <p style="font-size: 1.2rem; font-family: var(--font-button); font-weight: 500; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px;">Showcasing Excellence Since 2011</p>
+      <p style="font-size: 1.2rem; font-family: var(--font-button); font-weight: 500; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px;">"Crafting Spaces, Creating Memories"</p>
     </div>
   </section>
 
@@ -90,15 +92,10 @@
   <section class="section">
     <div class="container">
       
-      <!-- Gallery Filters -->
-      <div class="gallery-filters" id="gallery-filters">
-        <button class="filter-btn active" data-filter="all">All Projects</button>
-        <button class="filter-btn" data-filter="luxury-villas">Luxury Villas</button>
-        <button class="filter-btn" data-filter="residential-homes">Residential Homes</button>
-        <button class="filter-btn" data-filter="apartments">Apartments</button>
-        <button class="filter-btn" data-filter="commercial">Commercial Buildings</button>
-        <button class="filter-btn" data-filter="interior">Interior Designs</button>
-        <button class="filter-btn" data-filter="progress">Construction Progress</button>
+      <!-- Gallery Section Header -->
+      <div class="section-header">
+        <h2 class="section-title">Gallery</h2>
+        <div class="section-divider"></div>
       </div>
       
       <!-- Masonry Gallery Grid -->
@@ -106,7 +103,19 @@
         
         <!-- Project 1 (Luxury Villa) -->
         <div class="masonry-item gallery-item" data-category="luxury-villas">
-          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" loading="lazy" alt="The Grand Oasis Villa">
+          <img src="images/img1.jpg.png" loading="lazy" alt="The Grand Oasis Villa">
+          <div class="masonry-overlay">
+            <h3 class="gallery-project-title">The Grand Oasis Villa</h3>
+            <div class="gallery-meta">
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Vijayawada</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Luxury Villa</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2025</span>
+            </div>
+          </div>
+        </div>
+         
+                <div class="masonry-item gallery-item" data-category="luxury-villas">
+          <img src="images/img11.jpg.png" loading="lazy" alt="The Grand Oasis Villa">
           <div class="masonry-overlay">
             <h3 class="gallery-project-title">The Grand Oasis Villa</h3>
             <div class="gallery-meta">
@@ -117,22 +126,9 @@
           </div>
         </div>
         
-        <!-- Project 2 (Commercial) -->
-        <div class="masonry-item gallery-item" data-category="commercial">
-          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Whitefield Corporate Tower">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">Whitefield Corporate Tower</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Bangalore</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line></svg> Commercial</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> 2024</span>
-            </div>
-          </div>
-        </div>
-        
         <!-- Project 3 (Interior Design) -->
         <div class="masonry-item gallery-item" data-category="interior">
-          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Opulent Lounge Interior">
+          <img src="images/img8.jpg.png" loading="lazy" alt="Opulent Lounge Interior">
           <div class="masonry-overlay">
             <h3 class="gallery-project-title">Opulent Lounge Interior</h3>
             <div class="gallery-meta">
@@ -143,9 +139,23 @@
           </div>
         </div>
 
+        <!-- Project 2 (Commercial) -->
+        <div class="masonry-item gallery-item" data-category="commercial">
+          <img src="images/image3 jpg.png" loading="lazy" alt="Whitefield Corporate Tower">
+          <div class="masonry-overlay">
+            <h3 class="gallery-project-title">Whitefield Corporate Tower</h3>
+            <div class="gallery-meta">
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Bangalore</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line></svg> Commercial</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> 2024</span>
+            </div>
+          </div>
+        </div>
+        
+
         <!-- Project 4 (Residential Homes) -->
         <div class="masonry-item gallery-item" data-category="residential-homes">
-          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Modern Minimalist Residence">
+          <img src="images/img10.jpg.png" loading="lazy" alt="Modern Minimalist Residence">
           <div class="masonry-overlay">
             <h3 class="gallery-project-title">Minimalist Residence</h3>
             <div class="gallery-meta">
@@ -156,9 +166,11 @@
           </div>
         </div>
 
+        
+
         <!-- Project 5 (Apartments) -->
         <div class="masonry-item gallery-item" data-category="apartments">
-          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Skyline Luxury Apartments">
+          <img src="images/img7.jpg.png" loading="lazy" alt="Skyline Luxury Apartments">
           <div class="masonry-overlay">
             <h3 class="gallery-project-title">Skyline Apartments</h3>
             <div class="gallery-meta">
@@ -171,7 +183,19 @@
         
         <!-- Project 6 (Construction Progress) -->
         <div class="masonry-item gallery-item" data-category="progress">
-          <img src="https://images.unsplash.com/photo-1541888086925-0c132890539c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Phase 2 Structural Foundation">
+          <img src="images/img9.jpg.png" loading="lazy" alt="Phase 2 Structural Foundation">
+          <div class="masonry-overlay">
+            <h3 class="gallery-project-title">Structural Foundation</h3>
+            <div class="gallery-meta">
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Vijayawada</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Progress</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> Ongoing</span>
+            </div>
+          </div>
+        </div>
+
+                <div class="masonry-item gallery-item" data-category="progress">
+          <img src="images/img12.jpg.png" loading="lazy" alt="Phase 2 Structural Foundation">
           <div class="masonry-overlay">
             <h3 class="gallery-project-title">Structural Foundation</h3>
             <div class="gallery-meta">
@@ -199,8 +223,8 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-about">
-          <div class="logo footer-logo">
-            <img src="assets/images/Logo.png" alt="AIRA HOMES Logo" style="height: 80px; width: auto; border-radius: 50%;">
+          <div class="footer-logo" style="margin-bottom: 1.5rem;">
+            <img src="Logo.png" alt="AIRA HOMES Logo" style="height: 60px; width: 60px; object-fit: contain;">
           </div>
           <p class="footer-desc">Professional Construction, Architecture & Real Estate Development Company established in 2011. Bringing luxury and structural integrity to every project.</p>
                     <div class="social-links">
@@ -244,7 +268,14 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 AIRA HOMES. All Rights Reserved. Built with precision and luxury.</p>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; justify-content: center;">
+            <p style="margin: 0;">&copy; 2026 AIRA HOMES. All Rights Reserved. Built with precision and luxury.</p>
+            <div style="display: flex; gap: 15px; font-size: 0.85rem;">
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#D4A017'" onmouseout="this.style.color='rgba(255, 255, 255, 0.7)'">Privacy Policy</a>
+                <span style="color: rgba(255, 255, 255, 0.3);">|</span>
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#D4A017'" onmouseout="this.style.color='rgba(255, 255, 255, 0.7)'">Terms of Service</a>
+            </div>
+        </div>
       </div>
     </div>
   </footer>
@@ -257,9 +288,19 @@
     </svg>
   </a>
 
-  <script src="assets/js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 
