@@ -79,10 +79,19 @@ document.addEventListener('DOMContentLoaded', () => {
     : [];
 
   navLinksInPanel.forEach(link => {
-    link.addEventListener('click', () => {
-      // Delay close so navigation fires first
-      // DO NOT call e.preventDefault() — let links navigate normally
-      setTimeout(closeMenu, 50);
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      // If it's a real page link, navigate manually to ensure it works on mobile
+      if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:')) {
+        e.preventDefault();
+        closeMenu();
+        setTimeout(() => {
+          window.location.href = href;
+        }, 300); // Wait for menu to slide out
+      } else {
+        // Let tel/mailto/anchor links run natively
+        setTimeout(closeMenu, 300);
+      }
     });
   });
 

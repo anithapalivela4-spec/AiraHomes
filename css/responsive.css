@@ -1,4 +1,4 @@
-/* =============================================================
+﻿/* =============================================================
    AIRA HOMES — RESPONSIVE.CSS  (Complete Rewrite — clean fix)
    Mobile-First Responsive Overhaul for ALL pages
    Breakpoints:
@@ -1022,4 +1022,36 @@ footer,
   .projects-filter-grid {
     grid-template-columns: repeat(4, 1fr) !important;
   }
+}
+
+/* --- MOBILE NAV SOCIAL LINKS --- */
+.mobile-socials {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: none !important;
+  width: 100%;
+}
+.mobile-socials .social-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+.mobile-socials .social-links a {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #f4f4f4;
+  color: #13294B;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0 !important;
+  border: none !important;
+  transition: all 0.3s ease;
+}
+.mobile-socials .social-links a:hover {
+  background: #D4A017;
+  color: #fff;
 }
