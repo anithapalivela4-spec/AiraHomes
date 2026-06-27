@@ -18,10 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger   = document.getElementById('hamburger');
   const overlay     = document.getElementById('overlay');
 
-  // home page uses .navbar .nav-links (a <ul>)
-  // inner pages use #mobile-nav (an <aside>)
-  const mobilePanel = document.getElementById('mobile-nav')
-                   || document.querySelector('.navbar .nav-links');
+  const mobilePanel = document.getElementById('mobile-nav');
 
   /* Open the slide-in menu */
   const openMenu = () => {
