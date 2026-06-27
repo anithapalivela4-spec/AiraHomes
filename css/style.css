@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@500;600;700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@500;600;700&display=swap');
 
 /* --- DESIGN SYSTEM VARIABLES --- */
 :root {
@@ -318,40 +318,6 @@ header.scrolled {
   z-index: 1050;
   overflow-y: auto;
 }
-
-.mobile-nav.active {
-  right: 0;
-}
-
-.mobile-nav .nav-link {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  display: block;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(15, 39, 68, 0.4);
-  backdrop-filter: blur(4px);
-  z-index: 1040;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition-smooth);
-}
-
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* --- HERO SECTION --- */
-.hero {
-  position: relative;
-  min-height: 90vh;
   display: flex;
   align-items: center;
   padding-top: 160px;
@@ -2433,5 +2399,40 @@ ul {
 
 @media (min-width: 1366px) {
   .masonry-grid { column-count: 4 !important; }
+}
+
+
+/* --- OVERLAY (no blur — prevents mobile page blur) --- */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 39, 68, 0.5);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  pointer-events: none;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+/* --- MOBILE NAV LINKS (prescribed small size) --- */
+.mobile-nav .nav-link {
+  font-size: 0.88rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 0.85rem 0 !important;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  display: block;
+  color: #1E1E1E;
+  margin-bottom: 0 !important;
 }
 
