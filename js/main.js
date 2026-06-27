@@ -12,31 +12,47 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', handleScroll);
   handleScroll(); // Init on load
 
-  // --- MOBILE NAVIGATION TOGGLE ---
+    // --- MOBILE NAVIGATION TOGGLE ---
   const hamburger = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobile-nav');
-  const overlay = document.getElementById('overlay');
+  // Support both inner pages (.nav-menu or #mobile-nav) and home page (.nav-links)
+  const mobileNav = document.getElementById('mobile-nav') || document.querySelector('.nav-menu') || document.querySelector('.nav-links');
+  const overlay = document.getElementById('overlay'); // Might be null on home page
   
   const toggleMenu = () => {
-    mobileNav.classList.toggle('active');
-    overlay.classList.toggle('active');
+    if (mobileNav) mobileNav.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
+    
     // Simple hamburger animation toggle
     const spans = hamburger.querySelectorAll('span');
-    if (mobileNav.classList.contains('active')) {
-      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-      spans[1].style.opacity = '0';
-      spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-    } else {
-      spans[0].style.transform = 'none';
-      spans[1].style.opacity = '1';
-      spans[2].style.transform = 'none';
+    if (spans.length === 3) {
+      if (mobileNav && mobileNav.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
     }
   };
 
   if (hamburger) {
     hamburger.addEventListener('click', toggleMenu);
+  }
+  if (overlay) {
     overlay.addEventListener('click', toggleMenu);
   }
+
+  // Close menu on link click
+  const navLinksList = document.querySelectorAll('.nav-link, .nav-links a');
+  navLinksList.forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileNav && mobileNav.classList.contains('active')) {
+        toggleMenu();
+      }
+    });
+  });
 
   // --- STATS COUNTER ANIMATION ---
   const statNumbers = document.querySelectorAll('.stat-number');
@@ -202,4 +218,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
 
