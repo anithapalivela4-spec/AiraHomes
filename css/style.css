@@ -434,8 +434,8 @@ header.scrolled {
   border-radius: var(--border-radius-md);
   padding: 3rem;
   box-shadow: var(--shadow-premium);
-  transform: translateY(-50%);
-  margin-bottom: -50px;
+  transform: none;
+  margin-bottom: 0;
 }
 
 .stats-grid {
@@ -488,7 +488,7 @@ header.scrolled {
 
 /* --- SECTION DECORATION & LAYOUTS --- */
 .section {
-  padding: 6rem 0;
+  padding: 3rem 0;
 }
 
 .section-bg-beige { background-color: var(--bg-secondary); }
@@ -640,7 +640,7 @@ header.scrolled {
 
 /* --- INTERNAL PAGES HERO --- */
 .inner-hero {
-  padding: 180px 0 80px;
+  padding: 120px 1rem 50px;
   background-color: var(--bg-cream);
   text-align: center;
   border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -2434,3 +2434,4 @@ ul {
 @media (min-width: 1366px) {
   .masonry-grid { column-count: 4 !important; }
 }
+

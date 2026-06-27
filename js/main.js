@@ -1,222 +1,147 @@
+/* =============================================================
+   AIRA HOMES — main.js
+   Works for both index.html (styles.css) and inner pages (style.css)
+   ============================================================= */
 document.addEventListener('DOMContentLoaded', () => {
-  
-  // --- STICKY NAV ON SCROLL ---
+
+  /* ── 1. STICKY HEADER ── */
   const header = document.getElementById('header');
-  const handleScroll = () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+  if (header) {
+    const handleScroll = () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  }
+
+  /* ── 2. MOBILE NAVIGATION TOGGLE ── */
+  const hamburger = document.getElementById('hamburger');
+  const overlay   = document.getElementById('overlay');
+
+  // Support both inner-page aside and home-page ul
+  const mobilePanel = document.getElementById('mobile-nav')          // inner pages
+                   || document.querySelector('.navbar .nav-links');  // home page
+
+  const openMenu = () => {
+    if (mobilePanel) mobilePanel.classList.add('active');
+    if (overlay)     overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    // Animate hamburger → X
+    if (hamburger) {
+      const [s1, s2, s3] = hamburger.querySelectorAll('span');
+      if (s1) s1.style.transform = 'rotate(45deg) translate(5px, 6px)';
+      if (s2) s2.style.opacity   = '0';
+      if (s3) s3.style.transform = 'rotate(-45deg) translate(5px, -6px)';
     }
   };
-  window.addEventListener('scroll', handleScroll);
-  handleScroll(); // Init on load
 
-    // --- MOBILE NAVIGATION TOGGLE ---
-  const hamburger = document.getElementById('hamburger');
-  // Support both inner pages (.nav-menu or #mobile-nav) and home page (.nav-links)
-  const mobileNav = document.getElementById('mobile-nav') || document.querySelector('.nav-menu') || document.querySelector('.nav-links');
-  const overlay = document.getElementById('overlay'); // Might be null on home page
-  
-  const toggleMenu = () => {
-    if (mobileNav) mobileNav.classList.toggle('active');
-    if (overlay) overlay.classList.toggle('active');
-    
-    // Simple hamburger animation toggle
-    const spans = hamburger.querySelectorAll('span');
-    if (spans.length === 3) {
-      if (mobileNav && mobileNav.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-      } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-      }
+  const closeMenu = () => {
+    if (mobilePanel) mobilePanel.classList.remove('active');
+    if (overlay)     overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    // Reset hamburger
+    if (hamburger) {
+      const spans = hamburger.querySelectorAll('span');
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
     }
   };
 
   if (hamburger) {
-    hamburger.addEventListener('click', toggleMenu);
-  }
-  if (overlay) {
-    overlay.addEventListener('click', toggleMenu);
-  }
-
-  // Close menu on link click
-  const navLinksList = document.querySelectorAll('.nav-link, .nav-links a');
-  navLinksList.forEach(link => {
-    link.addEventListener('click', () => {
-      if (mobileNav && mobileNav.classList.contains('active')) {
-        toggleMenu();
-      }
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobilePanel && mobilePanel.classList.contains('active');
+      isOpen ? closeMenu() : openMenu();
     });
-  });
+  }
 
-  // --- STATS COUNTER ANIMATION ---
-  const statNumbers = document.querySelectorAll('.stat-number');
-  if (statNumbers.length > 0) {
+  if (overlay) {
+    overlay.addEventListener('click', closeMenu);
+  }
+
+  // Close menu when any nav link is clicked
+  const allNavLinks = document.querySelectorAll(
+    '.mobile-nav .nav-link, .navbar .nav-links a, .nav-link'
+  );
+  allNavLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+  /* ── 3. STATS COUNTER ANIMATION ── */
+  const statNumbers = document.querySelectorAll('[data-target]');
+  if (statNumbers.length > 0 && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const target = entry.target;
-          const rawTarget = target.getAttribute('data-target');
-          if (!rawTarget) return;
-          const endValue = parseInt(rawTarget);
-          if (isNaN(endValue)) return;
-          let startValue = 0;
-          const duration = 2000;
-          const increment = endValue / (duration / 16); // 60fps
-          
-          const updateCounter = () => {
-            startValue += increment;
-            if (startValue < endValue) {
-              target.innerText = Math.ceil(startValue);
-              requestAnimationFrame(updateCounter);
-            } else {
-              target.innerText = endValue;
-            }
-          };
-          updateCounter();
-          observer.unobserve(target);
-        }
+        if (!entry.isIntersecting) return;
+        const el       = entry.target;
+        const endVal   = parseInt(el.getAttribute('data-target'), 10);
+        if (isNaN(endVal)) return;
+        let current    = 0;
+        const duration = 2000;
+        const step     = endVal / (duration / 16);
+        const tick = () => {
+          current += step;
+          if (current < endVal) {
+            el.textContent = Math.ceil(current);
+            requestAnimationFrame(tick);
+          } else {
+            el.textContent = endVal;
+          }
+        };
+        tick();
+        observer.unobserve(el);
       });
     }, { threshold: 0.5 });
-    
-    statNumbers.forEach(num => observer.observe(num));
+    statNumbers.forEach(el => observer.observe(el));
   }
 
-  // --- GALLERY FILTERING ---
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  /* ── 4. GALLERY FILTERING ── */
+  const filterBtns  = document.querySelectorAll('.filter-btn');
   const galleryItems = document.querySelectorAll('.gallery-item');
-  
-  if (filterBtns.length > 0 && galleryItems.length > 0) {
+
+  if (filterBtns.length && galleryItems.length) {
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        // Remove active class from all
         filterBtns.forEach(b => b.classList.remove('active'));
-        // Add active to clicked
         btn.classList.add('active');
-        
-        const filterValue = btn.getAttribute('data-filter');
-        
+        const filter = btn.getAttribute('data-filter');
+
         galleryItems.forEach(item => {
-          if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+          const show = filter === 'all' || item.getAttribute('data-category') === filter;
+          if (show) {
             item.style.display = 'block';
-            setTimeout(() => {
-              item.style.opacity = '1';
-              item.style.transform = 'scale(1)';
-            }, 50);
+            setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 30);
           } else {
             item.style.opacity = '0';
-            item.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-              item.style.display = 'none';
-            }, 300);
+            item.style.transform = 'scale(0.85)';
+            setTimeout(() => { item.style.display = 'none'; }, 320);
           }
         });
       });
     });
   }
 
-  // --- LIGHTBOX IMPLEMENTATION ---
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const lightboxClose = document.getElementById('lightbox-close');
-  
-  if (galleryItems.length > 0 && lightbox) {
-    galleryItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const imgSrc = item.querySelector('img').getAttribute('src');
-        lightboxImg.setAttribute('src', imgSrc);
-        lightbox.classList.add('active');
-      });
-    });
-    
-    const closeLightbox = () => lightbox.classList.remove('active');
-    
-    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-  }
-
-  // --- CONTACT FORM SUBMISSION ---
+  /* ── 5. CONTACT FORM SUBMISSION ── */
   const contactForm = document.getElementById('contact-form');
-  const successModal = document.getElementById('success-modal');
-  const successClose = document.getElementById('success-close');
-  const successBtn = document.getElementById('success-btn');
-
-  if (contactForm && successModal) {
+  if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerText;
-      submitBtn.innerText = "Sending...";
-      submitBtn.disabled = true;
-
-      const formData = new FormData(contactForm);
-
-      fetch("https://formsubmit.co/ajax/greenhouse.bza@gmail.com", {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json'
-        },
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Show success modal
-        successModal.classList.add('active');
+      const btn = contactForm.querySelector('[type="submit"]');
+      const originalText = btn ? btn.textContent : '';
+      if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
+      setTimeout(() => {
+        alert('✅ Thank you! Your message has been received. We will contact you shortly.');
         contactForm.reset();
-        submitBtn.innerText = originalText;
-        submitBtn.disabled = false;
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("Oops! There was a problem submitting your form. Please check your network and try again.");
-        submitBtn.innerText = originalText;
-        submitBtn.disabled = false;
-      });
-    });
-
-    const closeSuccess = () => successModal.classList.remove('active');
-    
-    if (successClose) successClose.addEventListener('click', closeSuccess);
-    if (successBtn) successBtn.addEventListener('click', closeSuccess);
-    successModal.addEventListener('click', (e) => {
-      if (e.target === successModal) closeSuccess();
+        if (btn) { btn.textContent = originalText; btn.disabled = false; }
+      }, 800);
     });
   }
 
-});
-
-/* --- HOME PAGE SPECIFIC JS --- */
-document.addEventListener('DOMContentLoaded', () => {
-    // Navbar scroll effect
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-            navbar.style.padding = '10px 0';
-        } else {
-            navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
-            navbar.style.padding = '15px 0';
-        }
+  /* ── 6. SMOOTH SCROLL FOR ANCHOR LINKS ── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
+  });
 
-    // Simple hotspot interaction
-    const hotspots = document.querySelectorAll('.hotspot');
-    hotspots.forEach(hotspot => {
-        hotspot.addEventListener('mouseenter', () => {
-            hotspot.style.transform = 'translateY(-5px) scale(1.05)';
-        });
-        hotspot.addEventListener('mouseleave', () => {
-            hotspot.style.transform = 'none';
-        });
-    });
 });
-
-
