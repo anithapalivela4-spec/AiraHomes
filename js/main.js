@@ -78,7 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
   navLinksInPanel.forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
-      // If it's a real page link, navigate manually to ensure it works on mobile
+      const target = link.getAttribute('target');
+      
+      // If it's an external link intended for a new tab, let it run natively
+      if (target === '_blank') {
+        setTimeout(closeMenu, 300);
+        return;
+      }
+      
+      // If it's a real page link in same tab, navigate manually to ensure it works on mobile
       if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:')) {
         e.preventDefault();
         closeMenu();
