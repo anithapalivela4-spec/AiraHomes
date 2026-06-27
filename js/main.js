@@ -15,53 +15,76 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ── 2. MOBILE NAVIGATION TOGGLE ── */
-  const hamburger = document.getElementById('hamburger');
-  const overlay   = document.getElementById('overlay');
+  const hamburger   = document.getElementById('hamburger');
+  const overlay     = document.getElementById('overlay');
 
-  // Support both inner-page aside and home-page ul
-  const mobilePanel = document.getElementById('mobile-nav')          // inner pages
-                   || document.querySelector('.navbar .nav-links');  // home page
+  // home page uses .navbar .nav-links (a <ul>)
+  // inner pages use #mobile-nav (an <aside>)
+  const mobilePanel = document.getElementById('mobile-nav')
+                   || document.querySelector('.navbar .nav-links');
 
+  /* Open the slide-in menu */
   const openMenu = () => {
-    if (mobilePanel) mobilePanel.classList.add('active');
-    if (overlay)     overlay.classList.add('active');
+    if (!mobilePanel) return;
+    mobilePanel.classList.add('active');
+    if (overlay) overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
     // Animate hamburger → X
     if (hamburger) {
-      const [s1, s2, s3] = hamburger.querySelectorAll('span');
-      if (s1) s1.style.transform = 'rotate(45deg) translate(5px, 6px)';
-      if (s2) s2.style.opacity   = '0';
-      if (s3) s3.style.transform = 'rotate(-45deg) translate(5px, -6px)';
+      const spans = hamburger.querySelectorAll('span');
+      if (spans[0]) spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+      if (spans[1]) spans[1].style.opacity   = '0';
+      if (spans[2]) spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
     }
   };
 
+  /* Close the slide-in menu */
   const closeMenu = () => {
-    if (mobilePanel) mobilePanel.classList.remove('active');
-    if (overlay)     overlay.classList.remove('active');
+    if (!mobilePanel) return;
+    mobilePanel.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
     // Reset hamburger
     if (hamburger) {
       const spans = hamburger.querySelectorAll('span');
-      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+      spans.forEach(s => {
+        s.style.transform = '';
+        s.style.opacity   = '';
+      });
     }
   };
 
+  /* Toggle on hamburger click */
   if (hamburger) {
-    hamburger.addEventListener('click', () => {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isOpen = mobilePanel && mobilePanel.classList.contains('active');
       isOpen ? closeMenu() : openMenu();
     });
   }
 
+  /* Close when overlay (dark backdrop) is tapped */
   if (overlay) {
     overlay.addEventListener('click', closeMenu);
   }
 
-  // Close menu when any nav link is clicked
-  const allNavLinks = document.querySelectorAll(
-    '.mobile-nav .nav-link, .navbar .nav-links a, .nav-link'
-  );
-  allNavLinks.forEach(link => link.addEventListener('click', closeMenu));
+  /* ─────────────────────────────────────────────────────────────
+     NAV LINK CLICKS — CRITICAL FIX
+     We must NOT call e.preventDefault() on navigation links.
+     We close the menu AFTER a short delay so the browser has
+     already registered the navigation href before DOM changes.
+  ───────────────────────────────────────────────────────────── */
+  const navLinksInPanel = mobilePanel
+    ? mobilePanel.querySelectorAll('a')
+    : [];
+
+  navLinksInPanel.forEach(link => {
+    link.addEventListener('click', () => {
+      // Delay close so navigation fires first
+      // DO NOT call e.preventDefault() — let links navigate normally
+      setTimeout(closeMenu, 50);
+    });
+  });
 
   /* ── 3. STATS COUNTER ANIMATION ── */
   const statNumbers = document.querySelectorAll('[data-target]');
@@ -69,13 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        const el       = entry.target;
-        const endVal   = parseInt(el.getAttribute('data-target'), 10);
+        const el     = entry.target;
+        const endVal = parseInt(el.getAttribute('data-target'), 10);
         if (isNaN(endVal)) return;
-        let current    = 0;
-        const duration = 2000;
-        const step     = endVal / (duration / 16);
-        const tick = () => {
+        let current  = 0;
+        const step   = endVal / (2000 / 16); // 2 sec at 60fps
+        const tick   = () => {
           current += step;
           if (current < endVal) {
             el.textContent = Math.ceil(current);
@@ -92,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ── 4. GALLERY FILTERING ── */
-  const filterBtns  = document.querySelectorAll('.filter-btn');
+  const filterBtns   = document.querySelectorAll('.filter-btn');
   const galleryItems = document.querySelectorAll('.gallery-item');
 
   if (filterBtns.length && galleryItems.length) {
@@ -106,9 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const show = filter === 'all' || item.getAttribute('data-category') === filter;
           if (show) {
             item.style.display = 'block';
-            setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 30);
+            setTimeout(() => {
+              item.style.opacity   = '1';
+              item.style.transform = 'scale(1)';
+            }, 30);
           } else {
-            item.style.opacity = '0';
+            item.style.opacity   = '0';
             item.style.transform = 'scale(0.85)';
             setTimeout(() => { item.style.display = 'none'; }, 320);
           }
@@ -117,14 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── 5. CONTACT FORM SUBMISSION ── */
+  /* ── 5. CONTACT FORM ── */
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const btn = contactForm.querySelector('[type="submit"]');
+      const btn          = contactForm.querySelector('[type="submit"]');
       const originalText = btn ? btn.textContent : '';
-      if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
+      if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
       setTimeout(() => {
         alert('✅ Thank you! Your message has been received. We will contact you shortly.');
         contactForm.reset();
@@ -133,10 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── 6. SMOOTH SCROLL FOR ANCHOR LINKS ── */
+  /* ── 6. SMOOTH SCROLL — only for true same-page anchors ── */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
-      const target = document.querySelector(anchor.getAttribute('href'));
+      const href   = anchor.getAttribute('href');
+      // Skip bare "#" links to avoid blocking navigation
+      if (href === '#') return;
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
