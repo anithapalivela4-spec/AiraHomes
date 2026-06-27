@@ -1,4 +1,4 @@
-/* =============================================================
+﻿/* =============================================================
    AIRA HOMES — RESPONSIVE.CSS  (Complete Rewrite — clean fix)
    Mobile-First Responsive Overhaul for ALL pages
    Breakpoints:
@@ -521,7 +521,7 @@ header#header .hamburger span {
 .form-row {
   display: grid !important;
   grid-template-columns: 1fr !important;
-  gap: 0 !important;
+  gap: 1.25rem !important;
 }
 
 .map-wrapper iframe {
@@ -624,7 +624,7 @@ footer,
   .stats-section {
     flex-direction: row !important;
     flex-wrap: wrap !important;
-    gap: 0 !important;
+    gap: 1.25rem !important;
   }
 
   .stat-card {
@@ -761,7 +761,7 @@ footer,
     padding: 2rem !important;
     margin-top: -30px !important;
     margin-bottom: 3rem !important;
-    gap: 0 !important;
+    gap: 1.25rem !important;
   }
 
   .stat-card {
@@ -854,7 +854,7 @@ footer,
 
   .newsletter-form {
     flex-direction: row !important;
-    gap: 0 !important;
+    gap: 1.25rem !important;
   }
 
   .newsletter-input,
@@ -1019,3 +1019,4 @@ footer,
   background: #D4A017;
   color: #fff;
 }
+
