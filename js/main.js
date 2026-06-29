@@ -79,34 +79,23 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
       const target = link.getAttribute('target');
-
-      // External links (http/https) — open in new tab via window.open for mobile reliability
-      if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
-        e.preventDefault();
-        window.open(href, '_blank', 'noopener,noreferrer');
-        setTimeout(closeMenu, 200);
-        return;
-      }
-
-      // tel: / mailto: — let browser handle natively
-      if (href && (href.startsWith('tel:') || href.startsWith('mailto:'))) {
+      
+      // If it's an external link intended for a new tab, let it run natively
+      if (target === '_blank') {
         setTimeout(closeMenu, 300);
         return;
       }
-
-      // Same-page anchor links
-      if (href && href.startsWith('#')) {
-        setTimeout(closeMenu, 300);
-        return;
-      }
-
-      // Internal page links — navigate manually after menu closes
-      if (href) {
+      
+      // If it's a real page link in same tab, navigate manually to ensure it works on mobile
+      if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:')) {
         e.preventDefault();
         closeMenu();
         setTimeout(() => {
           window.location.href = href;
-        }, 300);
+        }, 300); // Wait for menu to slide out
+      } else {
+        // Let tel/mailto/anchor links run natively
+        setTimeout(closeMenu, 300);
       }
     });
   });
