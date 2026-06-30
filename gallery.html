@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -106,37 +106,7 @@
         <div class="section-divider"></div>
       </div>
 
-      <!-- ── FILTER BUTTONS ── -->
-      <div class="gallery-filters" id="gallery-filters" style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.6rem;margin-bottom:2.5rem;">
-        <button class="filter-btn active" data-filter="all">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          All Projects
-        </button>
-        <button class="filter-btn" data-filter="luxury-villas">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-          Luxury Villas
-        </button>
-        <button class="filter-btn" data-filter="interior">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-          Interior
-        </button>
-        <button class="filter-btn" data-filter="commercial">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-          Commercial
-        </button>
-        <button class="filter-btn" data-filter="residential-homes">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9"/><path d="M9 22V12h6v10M2 10.6L12 2l10 8.6"/></svg>
-          Residential
-        </button>
-        <button class="filter-btn" data-filter="apartments">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="21" x2="8" y2="3"/><line x1="16" y1="21" x2="16" y2="3"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg>
-          Apartments
-        </button>
-        <button class="filter-btn" data-filter="progress">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          In Progress
-        </button>
-      </div>
+
 
       <!-- ── MASONRY GALLERY GRID ── -->
       <div class="masonry-grid" id="masonry-grid">
@@ -379,32 +349,9 @@
     </div>
   </section>
 
-  <!-- Filter + Lightbox JS -->
   <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // ── FILTER ──
-    const filterBtns = document.querySelectorAll('.filter-btn');
     const galleryItems = document.querySelectorAll('.masonry-item.gallery-item');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cat = btn.dataset.filter;
-        galleryItems.forEach(item => {
-          const show = cat === 'all' || item.dataset.category === cat;
-          item.style.transition = 'opacity 0.3s, transform 0.3s';
-          if (show) {
-            item.style.display = '';
-            requestAnimationFrame(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; });
-          } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.92)';
-            setTimeout(() => { item.style.display = 'none'; }, 300);
-          }
-        });
-      });
-    });
 
     // ── LIGHTBOX ──
     const lightbox = document.getElementById('lightbox');
@@ -426,116 +373,6 @@
     }
   });
   </script>
-
-        
-        <!-- Project 1 (Luxury Villa) -->
-        <div class="masonry-item gallery-item" data-category="luxury-villas">
-          <img src="images/img1.jpg.png" loading="lazy" alt="The Grand Oasis Villa">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">The Grand Oasis Villa</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Vijayawada</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Luxury Villa</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2025</span>
-            </div>
-          </div>
-        </div>
-         
-                <div class="masonry-item gallery-item" data-category="luxury-villas">
-          <img src="images/img11.jpg.png" loading="lazy" alt="The Grand Oasis Villa">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">The Grand Oasis Villa</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Vijayawada</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Luxury Villa</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2025</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Project 3 (Interior Design) -->
-        <div class="masonry-item gallery-item" data-category="interior">
-          <img src="images/img8.jpg.png" loading="lazy" alt="Opulent Lounge Interior">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">Opulent Lounge Interior</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Hyderabad</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon></svg> Interior Design</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> 2025</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 2 (Commercial) -->
-        <div class="masonry-item gallery-item" data-category="commercial">
-          <img src="images/image3 jpg.png" loading="lazy" alt="Whitefield Corporate Tower">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">Whitefield Corporate Tower</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Bangalore</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line></svg> Commercial</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> 2024</span>
-            </div>
-          </div>
-        </div>
-        
-
-        <!-- Project 4 (Residential Homes) -->
-        <div class="masonry-item gallery-item" data-category="residential-homes">
-          <img src="images/img10.jpg.png" loading="lazy" alt="Modern Minimalist Residence">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">Minimalist Residence</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Guntur</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Residential</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> 2023</span>
-            </div>
-          </div>
-        </div>
-
-        
-
-        <!-- Project 5 (Apartments) -->
-        <div class="masonry-item gallery-item" data-category="apartments">
-          <img src="images/img7.jpg.png" loading="lazy" alt="Skyline Luxury Apartments">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">Skyline Apartments</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Hyderabad</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect></svg> Apartment</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> 2026</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Project 6 (Construction Progress) -->
-        <div class="masonry-item gallery-item" data-category="progress">
-          <img src="images/img9.jpg.png" loading="lazy" alt="Phase 2 Structural Foundation">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">Structural Foundation</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Vijayawada</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Progress</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> Ongoing</span>
-            </div>
-          </div>
-        </div>
-
-                <div class="masonry-item gallery-item" data-category="progress">
-          <img src="images/img12.jpg.png" loading="lazy" alt="Phase 2 Structural Foundation">
-          <div class="masonry-overlay">
-            <h3 class="gallery-project-title">Structural Foundation</h3>
-            <div class="gallery-meta">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg> Vijayawada</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Progress</span>
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> Ongoing</span>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </section>
 
   <!-- LIGHTBOX MODAL -->
   <div class="lightbox" id="lightbox">
